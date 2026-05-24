@@ -353,98 +353,107 @@
         .fi.on { opacity: 1; transform: translateY(0); }
 
         /* ── PROJECTS ── */
-        #work { max-width: 1260px; margin: 0 auto; }
+        #work { max-width: 1200px; margin: 0 auto; }
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
+            gap: 1.5rem;
         }
 
         .card {
             background: var(--bg-card);
-            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             overflow: hidden;
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, border-color 0.3s, box-shadow 0.3s;
             cursor: none;
+        }
+        .card:hover {
+            border-color: rgba(59,130,246,0.25);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
         }
         @media (hover: none) { .card { cursor: auto; } }
 
         .card-img {
-            height: 200px;
+            height: 220px;
             position: relative;
             overflow: hidden;
+            background: #111;
         }
         .card-img-bg {
             position: absolute; inset: 0;
             transition: transform 0.55s ease;
         }
-        .card:hover .card-img-bg { transform: scale(1.06); }
+        .card:hover .card-img-bg { transform: scale(1.04); }
 
         .card-overlay {
             position: absolute; inset: 0;
-            background: rgba(0,0,0,0.72);
+            background: rgba(0,0,0,0.65);
             display: grid;
             place-items: center;
             opacity: 0;
             transition: opacity 0.3s;
+            z-index: 2;
         }
         .card:hover .card-overlay { opacity: 1; }
 
-        /* on touch devices always show the button */
         @media (hover: none) {
-            .card-overlay { opacity: 1; background: rgba(0,0,0,0.45); }
+            .card-overlay { opacity: 1; background: rgba(0,0,0,0.38); }
         }
 
         .card-view {
             font-family: var(--mono);
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             letter-spacing: 0.12em;
             color: var(--text);
             text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.35);
-            padding: 0.55rem 1.4rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 0.6rem 1.5rem;
             text-transform: uppercase;
+            border-radius: 2px;
             transition: border-color 0.2s, background 0.2s;
+            backdrop-filter: blur(6px);
         }
-        .card-view:hover { border-color: var(--accent); background: var(--accent-dim); }
+        .card-view:hover { border-color: var(--accent); background: rgba(59,130,246,0.15); }
 
-        .card-body { padding: 1.6rem 1.6rem 1.9rem; }
+        .card-body { padding: 1.5rem 1.6rem 1.75rem; }
         .card-num {
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: 0.6rem;
             color: var(--muted);
-            letter-spacing: 0.08em;
-            margin-bottom: 0.6rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
         }
         .card-title {
             font-family: var(--display);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             letter-spacing: -0.02em;
-            margin-bottom: 0.6rem;
+            color: var(--text);
+            margin-bottom: 0.55rem;
         }
         .card-desc {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: var(--muted);
             line-height: 1.7;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.2rem;
         }
         .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
         .tag {
             font-family: var(--mono);
-            font-size: 0.6rem;
+            font-size: 0.58rem;
             letter-spacing: 0.06em;
             color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 0.28rem 0.6rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 0.25rem 0.6rem;
+            border-radius: 2px;
         }
 
-        /* card gradients (shown while screenshot loads or on error) */
-        .g1 { background: linear-gradient(140deg, #050c1a 0%, #0a1930 45%, #0e2a52 75%, #1a3a7a 100%); }
-        .g2 { background: linear-gradient(140deg, #0a0a08 0%, #1a1800 45%, #332e00 75%, #5c4f00 100%); }
-        .g3 { background: linear-gradient(140deg, #0d0509 0%, #1e0a12 45%, #3d1020 75%, #6b1535 100%); }
+        /* card gradients — shown while screenshot loads */
+        .g1 { background: linear-gradient(140deg, #050c1a 0%, #0a1930 50%, #1a3a7a 100%); }
+        .g2 { background: linear-gradient(140deg, #0d1a0d 0%, #1a3a1a 50%, #2d5a2d 100%); }
+        .g3 { background: linear-gradient(140deg, #1a0a05 0%, #3a1508 50%, #6b2810 100%); }
 
         /* live screenshot preview */
         .card-screenshot {
@@ -454,12 +463,11 @@
             object-fit: cover;
             object-position: top center;
             z-index: 1;
-            transition: transform 0.55s ease, opacity 0.4s ease;
+            transition: transform 0.55s ease, opacity 0.5s ease;
             opacity: 0;
         }
         .card-screenshot.loaded { opacity: 1; }
-        .card:hover .card-screenshot { transform: scale(1.06); }
-        .card-overlay { z-index: 2; }
+        .card:hover .card-screenshot { transform: scale(1.04); }
 
         /* ── CONTACT ── */
         #contact {
@@ -540,16 +548,15 @@
         @keyframes up { to { opacity:1; transform:translateY(0); } }
 
         /* ── TABLET ── */
-        @media (max-width: 900px) {
-            .projects-grid { grid-template-columns: 1fr; }
-            .card-img { height: 220px; }
+        @media (max-width: 960px) {
+            .projects-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            .card { display: grid; grid-template-columns: 280px 1fr; }
+            .card-img { height: 100%; min-height: 200px; }
         }
 
         /* ── MOBILE ── */
         @media (max-width: 640px) {
             nav { padding: 1.2rem 1.25rem; }
-
-            /* show hamburger, hide desktop links */
             .hamburger { display: flex; }
             .nav-links { display: none; }
 
@@ -558,7 +565,10 @@
 
             section { padding: 5rem 1.25rem; }
 
-            .projects-grid { grid-template-columns: 1fr; gap: 1px; }
+            /* single column on mobile, portrait card layout */
+            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .card { display: block; }
+            .card-img { height: 200px; }
 
             #contact { padding: 5rem 1.25rem; }
 
@@ -632,7 +642,7 @@
 </div>
 
 <!-- Projects -->
-<section>
+<section style="padding-left:2rem; padding-right:2rem;">
 <div id="work">
     <p class="section-label fi">Selected Work</p>
     <h2 class="section-heading fi" style="transition-delay:.1s">Projects that push the boundary of what the web can be.</h2>
@@ -682,7 +692,7 @@
         <div class="card fi" style="transition-delay:.25s" data-tilt>
             <div class="card-img">
                 <div class="card-img-bg g3"></div>
-                <img class="card-screenshot" src="https://image.thum.io/get/width/800/crop/450/noanimate/https://lucas-barbershop.vercel.app/" alt="Lucas Barbershop preview" loading="lazy">
+                <img class="card-screenshot" src="https://image.thum.io/get/width/800/crop/450/https://lucas-barbershop.vercel.app/" alt="Lucas Barbershop preview" loading="lazy">
                 <div class="card-overlay">
                     <a href="https://lucas-barbershop.vercel.app/" target="_blank" rel="noopener" class="card-view">View Project</a>
                 </div>
