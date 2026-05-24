@@ -441,10 +441,25 @@
             padding: 0.28rem 0.6rem;
         }
 
-        /* card gradients */
+        /* card gradients (shown while screenshot loads or on error) */
         .g1 { background: linear-gradient(140deg, #050c1a 0%, #0a1930 45%, #0e2a52 75%, #1a3a7a 100%); }
         .g2 { background: linear-gradient(140deg, #0a0a08 0%, #1a1800 45%, #332e00 75%, #5c4f00 100%); }
         .g3 { background: linear-gradient(140deg, #0d0509 0%, #1e0a12 45%, #3d1020 75%, #6b1535 100%); }
+
+        /* live screenshot preview */
+        .card-screenshot {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            z-index: 1;
+            transition: transform 0.55s ease, opacity 0.4s ease;
+            opacity: 0;
+        }
+        .card-screenshot.loaded { opacity: 1; }
+        .card:hover .card-screenshot { transform: scale(1.06); }
+        .card-overlay { z-index: 2; }
 
         /* ── CONTACT ── */
         #contact {
@@ -627,6 +642,7 @@
         <div class="card fi" style="transition-delay:.05s" data-tilt>
             <div class="card-img">
                 <div class="card-img-bg g1"></div>
+                <img class="card-screenshot" src="https://image.thum.io/get/width/800/crop/450/noanimate/https://www.diamondclean.md/" alt="Diamond Clean preview" loading="lazy">
                 <div class="card-overlay">
                     <a href="https://www.diamondclean.md/" target="_blank" rel="noopener" class="card-view">View Project</a>
                 </div>
@@ -646,6 +662,7 @@
         <div class="card fi" style="transition-delay:.15s" data-tilt>
             <div class="card-img">
                 <div class="card-img-bg g2"></div>
+                <img class="card-screenshot" src="https://image.thum.io/get/width/800/crop/450/noanimate/https://casa-linistii.vercel.app/" alt="Casa Linistii preview" loading="lazy">
                 <div class="card-overlay">
                     <a href="https://casa-linistii.vercel.app/" target="_blank" rel="noopener" class="card-view">View Project</a>
                 </div>
@@ -665,6 +682,7 @@
         <div class="card fi" style="transition-delay:.25s" data-tilt>
             <div class="card-img">
                 <div class="card-img-bg g3"></div>
+                <img class="card-screenshot" src="https://image.thum.io/get/width/800/crop/450/noanimate/https://lucas-barbershop.vercel.app/" alt="Lucas Barbershop preview" loading="lazy">
                 <div class="card-overlay">
                     <a href="https://lucas-barbershop.vercel.app/" target="_blank" rel="noopener" class="card-view">View Project</a>
                 </div>
@@ -789,6 +807,12 @@ if (window.matchMedia('(hover: hover)').matches) {
         });
     });
 }
+
+// ── SCREENSHOT FADE-IN ──
+document.querySelectorAll('.card-screenshot').forEach(img => {
+    if (img.complete && img.naturalWidth) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'));
+});
 
 // ── MARQUEE DUPLICATE ──
 const t = document.getElementById('mtrack');
